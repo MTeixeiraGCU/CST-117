@@ -60,6 +60,7 @@ namespace ProjectOne
             // txtEarthWeight
             // 
             this.txtEarthWeight.Location = new System.Drawing.Point(59, 38);
+            this.txtEarthWeight.MaxLength = 12;
             this.txtEarthWeight.Name = "txtEarthWeight";
             this.txtEarthWeight.Size = new System.Drawing.Size(150, 20);
             this.txtEarthWeight.TabIndex = 1;

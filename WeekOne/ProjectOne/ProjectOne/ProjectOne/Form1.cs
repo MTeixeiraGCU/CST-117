@@ -46,6 +46,7 @@ namespace ProjectOne
             }
             catch
             {
+                //either field was empty or the parse could not convert it to a number
                 MessageBox.Show("You need to enter a number in for the Earth Weight!");
                 resetTextFields();
             }
