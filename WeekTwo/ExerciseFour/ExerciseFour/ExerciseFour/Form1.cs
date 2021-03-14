@@ -21,92 +21,60 @@ namespace ExerciseFour
         {
             //setup intial value
             int seconds = 0;
+            int minutes = 0;
+            int hours = 0;
+            int days = 0;
+
+            //Hide fields
+            lblDays.Hide();
+            lblDaysLabel.Hide();
+            lblHours.Hide();
+            lblHoursLabel.Hide();
+            lblMinutes.Hide();
+            lblMinutesLabel.Hide();
 
             //try to parse seconds from the text box control
-            try
+            if (int.TryParse(txtSeconds.Text, out seconds))
             {
-                seconds = int.Parse(txtSeconds.Text);
                 if(seconds < 0)
                 {
-                    throw new FormatException();
+                    MessageBox.Show("You must enter a non negative number for seconds!");
+                    return;
+                }
+
+                //Calculate days, hours, and minutes
+                days = seconds / 86400;
+                hours = seconds / 3600;
+                minutes = seconds / 60;
+                
+                //display the appropriate numbers
+                if(days > 0)
+                {
+                    lblDays.Text = days.ToString();
+                    lblDays.Show();
+                    lblDaysLabel.Show();
+                }
+                else if(hours > 0)
+                {
+                    lblHours.Text = hours.ToString();
+                    lblHours.Show();
+                    lblHoursLabel.Show();
+                }
+                else if(minutes > 0)
+                {
+                    lblMinutes.Text = minutes.ToString();
+                    lblMinutes.Show();
+                    lblMinutesLabel.Show();
+                }
+                else
+                {
+                    MessageBox.Show("You must enter at least 60 seconds to convert!");
                 }
             }
-            catch (ArgumentNullException ex)
-            {
-                MessageBox.Show("You must enter a value for seconds!");
-                Console.WriteLine("No data recieved, " + ex.Message);
-            }
-            catch (FormatException ex)
-            {
-                MessageBox.Show("You must enter a valid non decimal non negative number for the seconds!");
-                Console.WriteLine("Invalid number, " + ex.Message);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("You must enter a valid number for the seconds!");
-                Console.WriteLine(ex.Message);
-            }
-
-            //Calculate minutes, hours, and days
-            MinutesFromSeconds(seconds);
-            HoursFromSeconds(seconds);
-            DaysFromSeconds(seconds);
-        }
-
-        /**
-         * This method takes in the number of seconds and populates or hides the minutes control.
-         */
-        private void MinutesFromSeconds(int seconds)
-        {
-            int minutes = seconds / 60;
-            if (minutes > 0)
-            {
-                lblMinutes.Text = minutes.ToString();
-                lblMinutes.Show();
-                lblMinutesLabel.Show();
-            }
             else
             {
-                lblMinutes.Hide();
-                lblMinutesLabel.Hide();
-            }
-        }
-
-        /**
-         * This method takes in the number of seconds and populates or hides the hours control.
-         */
-        private void HoursFromSeconds(int seconds)
-        {
-            int hours = seconds / 3600;
-            if(hours > 0)
-            {
-                lblHours.Text = hours.ToString();
-                lblHours.Show();
-                lblHoursLabel.Show();
-            }
-            else
-            {
-                lblHours.Hide();
-                lblHoursLabel.Hide();
-            }
-        }
-
-        /**
-         * This method takes in the number of seconds and populates or hides the days control.
-         */
-        private void DaysFromSeconds(int seconds)
-        {
-            int days = seconds / 86400;
-            if(days > 0)
-            {
-                lblDays.Text = days.ToString();
-                lblDays.Show();
-                lblDaysLabel.Show();
-            }
-            else
-            {
-                lblDays.Hide();
-                lblDaysLabel.Hide();
+                //error trying to parse textbox
+                MessageBox.Show("You must enter a valid non decimal number for the seconds!");
             }
         }
     }
