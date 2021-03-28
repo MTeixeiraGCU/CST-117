@@ -12,9 +12,22 @@ namespace Milestone
 {
     public partial class SearchForm : Form
     {
-        public SearchForm()
+        private readonly Form _mainForm;
+
+        public SearchForm(Form mainForm)
         {
             InitializeComponent();
+            _mainForm = mainForm;
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            if (_mainForm == null)
+            {
+                MessageBox.Show("Could not return to main menu, Exiting!");
+            }
+            this.Hide();
+            _mainForm.Show();
         }
     }
 }

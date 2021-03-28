@@ -29,20 +29,13 @@ namespace Milestone
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbEmployees = new System.Windows.Forms.ListBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnBack = new System.Windows.Forms.Button();
+            this.dgvEmployees = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).BeginInit();
             this.SuspendLayout();
-            // 
-            // lbEmployees
-            // 
-            this.lbEmployees.FormattingEnabled = true;
-            this.lbEmployees.Location = new System.Drawing.Point(59, 58);
-            this.lbEmployees.Name = "lbEmployees";
-            this.lbEmployees.Size = new System.Drawing.Size(539, 264);
-            this.lbEmployees.TabIndex = 0;
             // 
             // lblTitle
             // 
@@ -62,6 +55,7 @@ namespace Milestone
             this.btnEdit.TabIndex = 2;
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnRemove
             // 
@@ -71,39 +65,57 @@ namespace Milestone
             this.btnRemove.TabIndex = 3;
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
-            // button3
+            // btnBack
             // 
-            this.button3.Location = new System.Drawing.Point(647, 273);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(97, 40);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Back";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnBack.Location = new System.Drawing.Point(647, 273);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(97, 40);
+            this.btnBack.TabIndex = 4;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
+            // dgvEmployees
+            // 
+            this.dgvEmployees.AllowUserToAddRows = false;
+            this.dgvEmployees.AllowUserToDeleteRows = false;
+            this.dgvEmployees.AllowUserToResizeRows = false;
+            this.dgvEmployees.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvEmployees.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEmployees.Location = new System.Drawing.Point(36, 58);
+            this.dgvEmployees.MultiSelect = false;
+            this.dgvEmployees.Name = "dgvEmployees";
+            this.dgvEmployees.ReadOnly = true;
+            this.dgvEmployees.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvEmployees.Size = new System.Drawing.Size(589, 287);
+            this.dgvEmployees.TabIndex = 5;
             // 
             // ViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 386);
-            this.Controls.Add(this.button3);
+            this.ControlBox = false;
+            this.Controls.Add(this.dgvEmployees);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.lbEmployees);
             this.Name = "ViewForm";
-            this.Text = "ViewForm";
+            this.Text = "Employee List";
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox lbEmployees;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnRemove;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.DataGridView dgvEmployees;
     }
 }

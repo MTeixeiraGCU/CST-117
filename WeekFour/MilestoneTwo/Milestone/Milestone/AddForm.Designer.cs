@@ -33,7 +33,7 @@ namespace Milestone
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtWage = new System.Windows.Forms.TextBox();
             this.lblWage = new System.Windows.Forms.Label();
-            this.txtPostition = new System.Windows.Forms.TextBox();
+            this.txtPosition = new System.Windows.Forms.TextBox();
             this.lblPosition = new System.Windows.Forms.Label();
             this.txtDepartment = new System.Windows.Forms.TextBox();
             this.lblDepartment = new System.Windows.Forms.Label();
@@ -63,7 +63,7 @@ namespace Milestone
             // 
             this.txtWage.Location = new System.Drawing.Point(102, 162);
             this.txtWage.Name = "txtWage";
-            this.txtWage.Size = new System.Drawing.Size(175, 20);
+            this.txtWage.Size = new System.Drawing.Size(102, 20);
             this.txtWage.TabIndex = 3;
             // 
             // lblWage
@@ -75,12 +75,12 @@ namespace Milestone
             this.lblWage.TabIndex = 2;
             this.lblWage.Text = "Wages/Hourly";
             // 
-            // txtPostition
+            // txtPosition
             // 
-            this.txtPostition.Location = new System.Drawing.Point(102, 220);
-            this.txtPostition.Name = "txtPostition";
-            this.txtPostition.Size = new System.Drawing.Size(175, 20);
-            this.txtPostition.TabIndex = 5;
+            this.txtPosition.Location = new System.Drawing.Point(102, 220);
+            this.txtPosition.Name = "txtPosition";
+            this.txtPosition.Size = new System.Drawing.Size(175, 20);
+            this.txtPosition.TabIndex = 5;
             // 
             // lblPosition
             // 
@@ -115,6 +115,7 @@ namespace Milestone
             this.btnAdd.TabIndex = 8;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnBack
             // 
@@ -124,6 +125,7 @@ namespace Milestone
             this.btnBack.TabIndex = 9;
             this.btnBack.Text = "Back";
             this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // lblId
             // 
@@ -148,20 +150,21 @@ namespace Milestone
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(412, 392);
+            this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblId);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtDepartment);
             this.Controls.Add(this.lblDepartment);
-            this.Controls.Add(this.txtPostition);
+            this.Controls.Add(this.txtPosition);
             this.Controls.Add(this.lblPosition);
             this.Controls.Add(this.txtWage);
             this.Controls.Add(this.lblWage);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblName);
             this.Name = "AddForm";
-            this.Text = "AddForm";
+            this.Text = "Add Employee";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -173,7 +176,7 @@ namespace Milestone
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtWage;
         private System.Windows.Forms.Label lblWage;
-        private System.Windows.Forms.TextBox txtPostition;
+        private System.Windows.Forms.TextBox txtPosition;
         private System.Windows.Forms.Label lblPosition;
         private System.Windows.Forms.TextBox txtDepartment;
         private System.Windows.Forms.Label lblDepartment;
