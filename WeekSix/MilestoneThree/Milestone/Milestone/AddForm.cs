@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Milestone.EmployeeData;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,25 +17,15 @@ namespace Milestone
      */
     public partial class AddForm : Form
     {
-        //local connection to the main form.
-        private readonly MainForm _mainForm;
-
-        public AddForm(MainForm mainForm)
+        public AddForm()
         {
             InitializeComponent();
-            _mainForm = mainForm;
+
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            //check for valid main form before attempting to return
-            if (_mainForm == null)
-            {
-                MessageBox.Show("Could not return to main menu, Exiting!");
-                System.Windows.Forms.Application.Exit();
-            }
-            this.Hide();
-            _mainForm.Show();
+            this.Close();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -55,11 +46,12 @@ namespace Milestone
                 MessageBox.Show("You must enter a valid amount for wage!");
                 return;
             }
-            _mainForm.AddEmployee(name, wage, position, department);
+
+            //add the employee to the manager
+            EmployeeManager.Instance.AddEmployee(name, wage, position, department);
 
             MessageBox.Show("New employee added!");
-            this.Hide();
-            _mainForm.Show();
+            this.Close();
         }
     }
 }

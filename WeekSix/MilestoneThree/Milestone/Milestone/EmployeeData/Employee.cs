@@ -80,5 +80,16 @@ namespace Milestone.EmployeeData
             _employeePosition = employee.EmployeePosition;
             _employeeDepartment = employee.EmployeeDepartment;
         }
+
+        //override for ToString to print a single employee to the console
+        public override string ToString()
+        {
+            return string.Format("Id: {0} : Name: {1} : Wage: {2} : Position: {3} : Department: {4}/n",
+                _employeeId,
+                _employeeName,
+                _employeeWage,
+                _employeePosition,
+                _employeeDepartment);
+        }
     }
 }

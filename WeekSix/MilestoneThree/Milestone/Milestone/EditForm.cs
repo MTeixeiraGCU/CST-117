@@ -14,37 +14,37 @@ namespace Milestone
 {
     public partial class EditForm : Form
     {
-        //local connection back to previous form.
-        private Form _previousForm;
-
         //currently selected employee to edit
-        private Employee _currentEmployee;
-        public Employee CurrentEmployee
-        {
-            get { return _currentEmployee; }
-            set { _currentEmployee = value; }
-        }
+        private readonly int _employeeId;
+        private string _employeeName;
+        private decimal _employeeWage;
+        private string _employeePosition;
+        private string _employeeDepartment;
 
-        public EditForm(Form previousForm)
+        public EditForm(int id)
         {
             InitializeComponent();
-            _previousForm = previousForm;
+
+            //initialize values
+            _employeeId = id;
+            _employeeName = "";
+            _employeeWage = 0.00m;
+            _employeePosition = "";
+            _employeeDepartment = "";
+
+            //get the values from the manager and enter them into the form
+            GetEmployeeData();
+            PopulateForm();
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            //check for valid return to previous form.
-            if(_previousForm == null)
-            {
-                MessageBox.Show("Could not return to previous page, Exiting!");
-                System.Windows.Forms.Application.Exit();
-            }
-            this.Hide();
-            _previousForm.Show();
+            this.Close();
         }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            GetEmployeeData();
             PopulateForm();
         }
 
@@ -58,36 +58,55 @@ namespace Milestone
             }
 
             //grab string fields
-            _currentEmployee.EmployeeName = txtName.Text;
-            _currentEmployee.EmployeePosition = txtPosition.Text;
-            _currentEmployee.EmployeeDepartment = txtDepartment.Text;
+            _employeeName = txtName.Text;
+            _employeePosition = txtPosition.Text;
+            _employeeDepartment = txtDepartment.Text;
 
             //parse new wage
             decimal wage;
             if(decimal.TryParse(txtWage.Text, NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint | NumberStyles.AllowCurrencySymbol, null, out wage))
             {
                 wage = Math.Round(wage, 2);
-                _currentEmployee.EmployeeWage = wage;
+                _employeeWage = wage;
             }
             else
             {
                 MessageBox.Show("You must enter a valid amount for wage!");
                 return;
             }
-            this.Hide();
-            _previousForm.Show();
+
+            //update the employee in the Employee manager
+            if(!EmployeeManager.Instance.UpdateEmployee(_employeeId, _employeeName, _employeeWage, _employeePosition, _employeeDepartment))
+            {
+                MessageBox.Show(string.Format("Could not update employee with ID: {0}!", _employeeId));
+                return;
+            }
+
+            MessageBox.Show("Employee data has been changed!");
+            this.Close();
         }
 
-        public void PopulateForm()
+        private void GetEmployeeData()
         {
-            if(_currentEmployee != null)
+            Employee employee = EmployeeManager.Instance.Get(_employeeId);
+            if(employee == null)
             {
-                lblId.Text = "Employee ID: " + _currentEmployee.EmployeeId;
-                txtName.Text = _currentEmployee.EmployeeName;
-                txtWage.Text = _currentEmployee.EmployeeWage.ToString("C2");
-                txtPosition.Text = _currentEmployee.EmployeePosition;
-                txtDepartment.Text = _currentEmployee.EmployeeDepartment;
+                throw new NullReferenceException(string.Format("Employee with ID: {0} not found!", _employeeId));
             }
+
+            _employeeName = employee.EmployeeName;
+            _employeeWage = employee.EmployeeWage;
+            _employeePosition = employee.EmployeePosition;
+            _employeeDepartment = employee.EmployeeDepartment;
+        }
+
+        private void PopulateForm()
+        {
+            lblId.Text = "Employee ID: " + _employeeId;
+            txtName.Text = _employeeName;
+            txtWage.Text = _employeeWage.ToString("C2");
+            txtPosition.Text = _employeePosition;
+            txtDepartment.Text = _employeeDepartment;
         }
     }
 }

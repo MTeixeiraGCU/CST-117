@@ -150,7 +150,6 @@ namespace Milestone
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(412, 392);
-            this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblId);
             this.Controls.Add(this.btnBack);
@@ -163,6 +162,8 @@ namespace Milestone
             this.Controls.Add(this.lblWage);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblName);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddForm";
             this.Text = "Add Employee";
             this.ResumeLayout(false);

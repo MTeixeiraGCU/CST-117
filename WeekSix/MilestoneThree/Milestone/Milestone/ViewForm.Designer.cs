@@ -91,18 +91,20 @@ namespace Milestone
             this.dgvEmployees.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvEmployees.Size = new System.Drawing.Size(589, 287);
             this.dgvEmployees.TabIndex = 5;
+            this.dgvEmployees.DoubleClick += new System.EventHandler(this.btnEdit_Click);
             // 
             // ViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 386);
-            this.ControlBox = false;
             this.Controls.Add(this.dgvEmployees);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.lblTitle);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "ViewForm";
             this.Text = "Employee List";
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).EndInit();

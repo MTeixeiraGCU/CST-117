@@ -96,7 +96,10 @@ namespace Milestone
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnView);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Employee Management System";
             this.ResumeLayout(false);
             this.PerformLayout();

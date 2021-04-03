@@ -17,18 +17,13 @@ namespace Milestone
      */
     public partial class ViewForm : Form
     {
-        //local connection to the main form.
-        private readonly MainForm _mainForm;
-        //sub form for editing employees
-        private EditForm _editForm;
 
-        public ViewForm(MainForm mainForm)
+        public ViewForm()
         {
             InitializeComponent();
-            _mainForm = mainForm;
 
-            //datacource, headers, and formats for list view of employees
-            dgvEmployees.DataSource = _mainForm.Employees;
+            //grab BindingList for EmployeeManager to display them graphically
+            dgvEmployees.DataSource = EmployeeManager.Instance.ToList();
             dgvEmployees.Columns["EmployeeId"].HeaderText = "Employee ID";
             dgvEmployees.Columns["EmployeeName"].HeaderText = "Name";
             dgvEmployees.Columns["EmployeeWage"].HeaderText = "Wage / Hourly";
@@ -39,13 +34,7 @@ namespace Milestone
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            //check for valid main form before attempting to return.
-            if(_mainForm == null)
-            {
-                MessageBox.Show("Could not return to main menu, Exiting!");
-            }
-            this.Hide();
-            _mainForm.Show();
+            this.Close();
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -58,7 +47,10 @@ namespace Milestone
                 if (result == DialogResult.Yes)
                 {
                     //remove the employee
-                    dgvEmployees.Rows.Remove(dgvEmployees.SelectedRows[0]);
+                    EmployeeManager.Instance.RemoveEmployee((int)dgvEmployees.SelectedRows[0].Cells["EmployeeId"].Value);
+                    //remap the datasource
+                    dgvEmployees.DataSource = EmployeeManager.Instance.ToList();
+                    dgvEmployees.Refresh();
                 }
             }
         }
@@ -71,18 +63,16 @@ namespace Milestone
                 MessageBox.Show("You must select an employee to edit first!");
                 return;
             }
-            //check for first time through edit form
-            if(_editForm == null)
-            {
-                _editForm = new EditForm(this);
-            }
 
-            //get the selected employee
-            _editForm.CurrentEmployee = (Employee)dgvEmployees.SelectedRows[0].DataBoundItem;
-            _editForm.PopulateForm();
+            var editForm = new EditForm((int)dgvEmployees.SelectedRows[0].Cells["EmployeeId"].Value);
 
+            //set up call back and move to new form
+            editForm.Location = this.Location;
+            editForm.StartPosition = FormStartPosition.Manual;
+            editForm.FormClosed += delegate { this.Show(); };
+            
             this.Hide();
-            _editForm.Show();
+            editForm.Show();
         }
     }
 }
