@@ -79,7 +79,7 @@ namespace Milestone.EmployeeData
             return true;
         }
 
-        //Adds an employee to the array
+        //Adds an employee to the array by either placing them into the next available slot or increasing the array size and putting them at the end.
         public void AddEmployee(string name, decimal wage, string position, string department)
         {
             //create new employee
@@ -89,8 +89,10 @@ namespace Milestone.EmployeeData
             if(_numberOfEmployees == _employees.Length)
             {
                 Employee[] tempArray = _employees;
-                //double the array size when it becomes full to decrase the number of full copy-overs
+                //double the array size when it becomes full to decrease the number of full copy-overs
+                //TODO: This will eventually overflow into an exception
                 _employees = new Employee[_employees.Length * 2];
+
                 for (int index = 0; index < tempArray.Length; index++)
                 {
                     _employees[index] = tempArray[index];
@@ -102,7 +104,7 @@ namespace Milestone.EmployeeData
             _numberOfEmployees++;
         }
 
-        //Removes an employee with the given id number
+        //Removes an employee with the given id number. This will never decrease the array size, only remove a single entry and shift the others.
         public void RemoveEmployee(int employeeId)
         {
             Employee[] tempArray = _employees;
@@ -126,13 +128,37 @@ namespace Milestone.EmployeeData
             _numberOfEmployees--;
         }
 
-        //searches through the array of employees for the given pattern by the type. type can be either Name, Position, or Department
-        public List<Employee> Search(string type, string pattern)
+        //Searches through the collection of Employees by thier Name for the given pattern
+        public List<Employee> SearchName(string pattern)
         {
-            var searchList = new List<Employee>();
-
             //ignore case
             pattern = pattern.ToLower();
+
+            return Search("Name", pattern);
+        }
+
+        //Searches through the collection of Employees by thier Position for the given pattern
+        public List<Employee> SearchPosition(string pattern)
+        {
+            //ignore case
+            pattern = pattern.ToLower();
+
+            return Search("Position", pattern);
+        }
+
+        //Searches through the collection of Employees by thier Department for the given pattern
+        public List<Employee> SearchDepartment(string pattern)
+        {
+            //ignore case
+            pattern = pattern.ToLower();
+
+            return Search("Department", pattern);
+        }
+
+        //searches through the array of employees for the given pattern by the type. type can be either Name, Position, or Department
+        private List<Employee> Search(string type, string pattern)
+        {
+            var searchList = new List<Employee>();
 
             //loop through all the employees
             for(int index = 0;index < _numberOfEmployees;index++)

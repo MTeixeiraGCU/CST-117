@@ -35,9 +35,9 @@ namespace Milestone
             lblNoResults.Hide();
 
             //gather the different results of the search patterns
-            var nameResult = EmployeeManager.Instance.Search("Name", txtName.Text);
-            var positionResults = EmployeeManager.Instance.Search("Position", txtPosition.Text);
-            var departmentResults = EmployeeManager.Instance.Search("Department", txtDepartment.Text);
+            var nameResult = EmployeeManager.Instance.SearchName(txtName.Text);
+            var positionResults = EmployeeManager.Instance.SearchPosition(txtPosition.Text);
+            var departmentResults = EmployeeManager.Instance.SearchDepartment(txtDepartment.Text);
 
             //find the intersect of all the results
             var searchResults = nameResult.Intersect(positionResults);
