@@ -94,7 +94,8 @@ namespace Milestone
                 {
                     if (!EmployeeManager.Instance.LoadFromFile(openFileDialog.FileName))
                     {
-                        MessageBox.Show("Could not load from file, starting with default list!");
+                        MessageBox.Show("Could not load from file, Exiting!");
+                        System.Windows.Forms.Application.Exit();
                     }
                 }
                 else
